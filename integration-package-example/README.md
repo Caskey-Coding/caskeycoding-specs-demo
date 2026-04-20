@@ -7,11 +7,12 @@
 
 > **This is a fictional pedagogical example.** `link-audit` is not a
 > real project. This spec package exists to demonstrate the shape of an
-> _integration package_ (per [ADR-001](../decision/ADR-003-spec-driven-development.md)
-> and [ADR-004](../decision/ADR-004-sdd-file-structure.md)) as used for
-> real work in the private `caskeycoding-specs` repo. Read this README
-> first, then follow the links to see how steering, features, and
-> decisions fit together.
+> _integration package_ as used for real work in the private
+> `caskeycoding-specs` repo. The framework is governed by
+> [ADR-001 (Spec-Driven Development)](../decision/ADR-001-spec-driven-development.md)
+> and [ADR-002 (canonical SDD file structure)](../decision/ADR-002-sdd-file-structure.md).
+> Read this README first, then follow the links to see how steering,
+> features, and decisions fit together.
 
 `link-audit` is a fictional CLI + GitHub Action that scans markdown
 repositories for broken links, missing anchors, and stale references.
@@ -47,6 +48,13 @@ systems surface edge cases.
 
 - [ADR-001: Go as the implementation language](./decision/ADR-001-go-as-implementation-language.md) — Static-binary distribution + strong stdlib HTTP. `accepted`.
 - [ADR-002: SARIF as the default output format](./decision/ADR-002-sarif-as-default-output-format.md) — GitHub code-scanning consumes SARIF natively. **Amends** `feature/001` v1 (which shipped text as default). `accepted`.
+
+> These ADRs are _package-scoped_: they live inside this package's
+> `decision/` folder and are numbered within the package (001, 002,
+> …). The org-wide ADRs that define the SDD framework itself live in
+> [`../decision/`](../decision/) at the repo root. Both numbering
+> scopes are valid and coexist in the live repo — same convention as
+> here.
 
 ## Implementation Sequence
 
@@ -118,7 +126,7 @@ can see the gap at a glance.
   external URLs to `ok` in v0.1.
 - `.link-audit.yaml` config loader — all settings are flags-only in
   v0.1.
-- SARIF reporter — spec'd in ADR-002 but the code path returns
+- SARIF reporter — spec'd in package ADR-002 but the code path returns
   `ErrNotImplemented`.
 - `feature/002-github-action-wrapper/` — not started; spec only.
 
@@ -133,10 +141,10 @@ can see the gap at a glance.
 ### Follow-up PRs this document anticipates
 
 1. **External-link HEAD-with-405-GET-fallback** (closes spec
-   `feature/001 §Requirements` external items; honors ADR-001's
+   `feature/001 §Requirements` external items; honors package ADR-001's
    "tri-state result" convention).
-2. **SARIF reporter** (closes ADR-002; unblocks GitHub code-scanning
-   adoption).
+2. **SARIF reporter** (closes package ADR-002; unblocks GitHub
+   code-scanning adoption).
 3. **Config loader** (closes spec `feature/001 §Config file shape`).
 4. **GitHub Action wrapper** (feature/002; blocked on #1–#3 because the
    Action needs JSON-producing CLI output).
@@ -145,6 +153,6 @@ can see the gap at a glance.
 
 ## References
 
-- Parent framework: [ADR-003: Spec-Driven Development](../decision/ADR-003-spec-driven-development.md)
-- File structure: [ADR-004: Canonical SDD File Structure](../decision/ADR-004-sdd-file-structure.md)
+- Framework: [ADR-001: Spec-Driven Development](../decision/ADR-001-spec-driven-development.md)
+- File structure: [ADR-002: Canonical SDD File Structure](../decision/ADR-002-sdd-file-structure.md)
 - Sibling archetype: [Domain Package Example](../domain-package-example/README.md)
