@@ -7,8 +7,9 @@ Development (SDD) workflow used in private development at
 This is **not** the live specs repo. The live `caskeycoding-specs` repo
 stays private — 138+ spec files, evolving daily, touching NDA-bound and
 commercial work. What you see here is the _shape_ of that system with one
-representative example of each archetype. Ten files, not one hundred and
-thirty-eight. Readers extrapolate.
+representative example of each archetype, written as fictional pedagogical
+sketches. Twenty files, not one hundred and thirty-eight. Readers
+extrapolate.
 
 If you landed here from the blog series, this is the proof surface for
 [Post 2: What a spec actually is](https://caskeycoding.com/blog/sdd-007).
@@ -19,51 +20,75 @@ If you landed here from the blog series, this is the proof surface for
 
 ```
 caskeycoding-specs-demo/
-├── README.md                                   ← you are here
-├── decision/
-│   ├── ADR-003-spec-driven-development.md      ← why SDD at all
-│   └── ADR-004-sdd-file-structure.md           ← the canonical tree
-├── integration-package-example/                ← fictional: link-audit
-│   ├── CLAUDE.md                               ← routing file at code-repo root
-│   ├── steering/
+├── README.md                                                   ← you are here
+├── decision/                                                   org-wide ADRs
+│   ├── ADR-003-spec-driven-development.md                      why SDD at all
+│   └── ADR-004-sdd-file-structure.md                           the canonical tree
+│
+├── integration-package-example/                                fictional: link-audit
+│   ├── README.md                                               ← package agent entry
+│   ├── CLAUDE.md                                               sample code-repo routing file
+│   ├── steering/                                               always-inject docs
 │   │   ├── project-overview.md
 │   │   ├── conventions.md
-│   │   └── tech-stack.md
-│   └── feature/
-│       └── 001-broken-link-detection/
-│           ├── spec.md
-│           └── decision-ADR.md
-└── domain-package-example/                     ← fictional: bookshelf
-    ├── product.md
-    ├── domain.md
-    ├── contracts.md
-    └── delivery.md
+│   │   ├── tech-stack.md
+│   │   └── architecture.md                                     ASCII diagrams + module tree
+│   ├── feature/
+│   │   ├── 001-broken-link-detection/
+│   │   │   └── requirements.md                                 status: in-progress
+│   │   └── 002-github-action-wrapper/
+│   │       └── requirements.md                                 status: draft
+│   └── decision/                                               package-scoped ADRs
+│       ├── ADR-001-go-as-implementation-language.md
+│       └── ADR-002-sarif-as-default-output-format.md           amends feature/001
+│
+└── domain-package-example/                                     fictional: bookshelf
+    ├── README.md                                               ← package agent entry
+    ├── product/                                                what and why
+    │   ├── 001-requirements.md
+    │   └── 002-use-cases.md
+    ├── domain/                                                 core model + business rules
+    │   ├── 001-model.md
+    │   └── 002-data-contracts.md
+    ├── contracts/                                              interfaces
+    │   └── 001-api.md
+    └── delivery/                                               build, test, ship
+        ├── 001-acceptance-tests.md
+        └── 002-rollout-plan.md
 ```
 
 ---
 
 ## How to read this repo
 
-Start with [`decision/ADR-003`](./decision/ADR-003-spec-driven-development.md).
-It explains why every feature gets a spec before code. Then read
-[`decision/ADR-004`](./decision/ADR-004-sdd-file-structure.md) — the
-directory structure rules the live repo follows, org-wide.
+**Start at the framework.** Read [`decision/ADR-003`](./decision/ADR-003-spec-driven-development.md)
+for why every feature gets a spec before code. Then
+[`decision/ADR-004`](./decision/ADR-004-sdd-file-structure.md) for the
+canonical directory structure the live repo follows.
 
-Then pick one:
+**Then pick an archetype:**
 
-- **Integration package** — an evolving platform project with shifting
-  requirements. [`integration-package-example/`](./integration-package-example/)
-  shows the `steering / feature / decision` shape. Start at its
-  [`CLAUDE.md`](./integration-package-example/CLAUDE.md).
-- **Domain package** — a bounded greenfield app with a stable domain
-  model. [`domain-package-example/`](./domain-package-example/) shows the
-  `product / domain / contracts / delivery` shape. Start at
-  [`product.md`](./domain-package-example/product.md).
+- **Integration package** — for projects that integrate into an evolving
+  platform with shifting requirements. Read
+  [`integration-package-example/README.md`](./integration-package-example/README.md)
+  first — it's the agent entry point, with a Directory Map, an
+  Implementation Sequence, numbered Agent Instructions, and an
+  **Implementation Reality** section that demonstrates the spec-vs-code
+  drift tracking pattern. Then follow the links into `steering/`,
+  `feature/`, and `decision/`.
+- **Domain package** — for greenfield apps with a stable bounded domain.
+  Read [`domain-package-example/README.md`](./domain-package-example/README.md)
+  first — it's the agent entry point, with a Spec Index tree, ASCII
+  architecture and data-flow diagrams, a Key Architectural Decisions
+  table, and a Module Structure. Then follow the links into `product/`,
+  `domain/`, `contracts/`, and `delivery/`.
 
-The two examples are **fictional** — `link-audit` and `bookshelf` don't
-exist. They're pedagogical sketches, written for clarity. The live repo
-uses exactly these shapes for real projects; those live projects stay
-private.
+The two examples are **fictional**. `link-audit` and `bookshelf` don't
+exist. They're written for clarity, modeled directly on the shapes of
+real production packages in the private repo (the `link-audit` shape
+mirrors `financial-reviewer`; the `bookshelf` shape mirrors
+`marathon-coach`). Reading the README of either example tells you what
+agents actually load when a session opens against the live equivalents.
 
 ---
 
@@ -81,6 +106,24 @@ private.
   receipts.
 - **Not exhaustive.** One example per archetype. The live repo has
   dozens. The shape is the point.
+
+---
+
+## What to look for as you read
+
+Beyond shape, three load-bearing patterns are deliberately surfaced
+across the example files:
+
+1. **Implementation Reality.** The integration package's `README.md`
+   carries an "Implementation Reality" section that tracks
+   spec-but-not-in-code, dead config surfaces, and follow-up PRs. ADR-003
+   calls this out as the bridge between intent (specs) and truth (code).
+2. **ADRs amend each other.** `integration-package-example/decision/ADR-002`
+   amends `feature/001`'s original API default. The amendment is recorded
+   in both files, with the change log showing the date.
+3. **Specs accumulate.** `feature/001` is `in-progress`; `feature/002`
+   is `draft` and depends on `001`. The numbered subdirectories
+   demonstrate that integration packages grow one feature at a time.
 
 ---
 
@@ -103,7 +146,8 @@ story that surrounds these specs:
 The sample specs in `integration-package-example/` and
 `domain-package-example/` are fictional and released under CC0 — copy,
 adapt, teach with them freely. ADR-003 and ADR-004 are reproduced
-verbatim from the private repo for reference; same terms.
+verbatim (ADR-004 lightly abridged) from the private repo for reference;
+same terms.
 
 ---
 
