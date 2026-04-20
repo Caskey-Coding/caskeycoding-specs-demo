@@ -22,8 +22,9 @@ If you landed here from the blog series, this is the proof surface for
 caskeycoding-specs-demo/
 ├── README.md                                                   ← you are here
 ├── decision/                                                   org-wide ADRs
-│   ├── ADR-003-spec-driven-development.md                      why SDD at all
-│   └── ADR-004-sdd-file-structure.md                           the canonical tree
+│   ├── README.md                                               numbering notes
+│   ├── ADR-001-spec-driven-development.md                      why SDD at all
+│   └── ADR-002-sdd-file-structure.md                           the canonical tree
 │
 ├── integration-package-example/                                fictional: link-audit
 │   ├── README.md                                               ← package agent entry
@@ -57,13 +58,19 @@ caskeycoding-specs-demo/
         └── 002-rollout-plan.md
 ```
 
+> **Numbering note.** The two ADRs in `decision/` are numbered 001 and
+> 002 inside this demo. In the private `caskeycoding-specs` repo the
+> same documents are numbered ADR-003 and ADR-004 — they were the 3rd
+> and 4th ADRs written there. See [`decision/README.md`](./decision/README.md)
+> for the full mapping.
+
 ---
 
 ## How to read this repo
 
-**Start at the framework.** Read [`decision/ADR-003`](./decision/ADR-003-spec-driven-development.md)
+**Start at the framework.** Read [`decision/ADR-001`](./decision/ADR-001-spec-driven-development.md)
 for why every feature gets a spec before code. Then
-[`decision/ADR-004`](./decision/ADR-004-sdd-file-structure.md) for the
+[`decision/ADR-002`](./decision/ADR-002-sdd-file-structure.md) for the
 canonical directory structure the live repo follows.
 
 **Then pick an archetype:**
@@ -97,7 +104,7 @@ agents actually load when a session opens against the live equivalents.
 - **Not a mirror.** The live `caskeycoding-specs` repo is private and
   stays that way. Nothing here was extracted from it mechanically.
 - **Not continuously synced.** This repo refreshes at milestones
-  (material changes to ADR-003 or ADR-004; new package shape). Expect
+  (material changes to ADR-001 or ADR-002; new package shape). Expect
   drift — it's a snapshot, not a feed.
 - **Not part of any AI workflow.** No Claude Code session, Perplexity
   connector, or routing table points here. It's a read-only artifact for
@@ -116,7 +123,7 @@ across the example files:
 
 1. **Implementation Reality.** The integration package's `README.md`
    carries an "Implementation Reality" section that tracks
-   spec-but-not-in-code, dead config surfaces, and follow-up PRs. ADR-003
+   spec-but-not-in-code, dead config surfaces, and follow-up PRs. ADR-001
    calls this out as the bridge between intent (specs) and truth (code).
 2. **ADRs amend each other.** `integration-package-example/decision/ADR-002`
    amends `feature/001`'s original API default. The amendment is recorded
@@ -145,8 +152,8 @@ story that surrounds these specs:
 
 The sample specs in `integration-package-example/` and
 `domain-package-example/` are fictional and released under CC0 — copy,
-adapt, teach with them freely. ADR-003 and ADR-004 are reproduced
-verbatim (ADR-004 lightly abridged) from the private repo for reference;
+adapt, teach with them freely. ADR-001 and ADR-002 are reproduced
+verbatim (ADR-002 lightly abridged) from the private repo for reference;
 same terms.
 
 ---
