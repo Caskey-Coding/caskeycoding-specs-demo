@@ -7,8 +7,10 @@
 
 > **This is a fictional pedagogical example.** `bookshelf` is not a
 > real product. This spec package exists to demonstrate the shape of a
-> _domain package_ as defined in [ADR-001 (spec package shapes)](../decision/ADR-003-spec-driven-development.md)
-> and [ADR-004 (canonical SDD file structure)](../decision/ADR-004-sdd-file-structure.md).
+> _domain package_ as used for real work in the private
+> `caskeycoding-specs` repo. The framework is governed by
+> [ADR-001 (Spec-Driven Development)](../decision/ADR-001-spec-driven-development.md)
+> and [ADR-002 (canonical SDD file structure)](../decision/ADR-002-sdd-file-structure.md).
 > Read this README first, then follow the links to see how product,
 > domain, contracts, and delivery fit together.
 
@@ -158,6 +160,6 @@ bookshelf/
 
 ## References
 
-- Parent framework: [ADR-003: Spec-Driven Development](../decision/ADR-003-spec-driven-development.md)
-- File structure: [ADR-004: Canonical SDD File Structure](../decision/ADR-004-sdd-file-structure.md)
+- Framework: [ADR-001: Spec-Driven Development](../decision/ADR-001-spec-driven-development.md)
+- File structure: [ADR-002: Canonical SDD File Structure](../decision/ADR-002-sdd-file-structure.md)
 - Sibling archetype: [Integration Package Example](../integration-package-example/README.md)
